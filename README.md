@@ -1,2 +1,2 @@
 # CrapsWithBettingSystem
-An easy Python Craps game I created from scratch with pass line betting
+A simple CLI Python Craps game I created from scratch with pass line betting.
