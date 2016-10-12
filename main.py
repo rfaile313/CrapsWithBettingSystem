@@ -1,4 +1,6 @@
-#Author: Rudy Faile #Version Date: 3/15/16
+#Author:  Rudy Faile 
+#Version: 3.1
+#Date:    3/15/16
 import random
 import time
 from datetime import date
