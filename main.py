@@ -1,184 +1,173 @@
+
 #Author:  Rudy Faile 
-#Version: 3.1
-#Date:    3/15/16
+#Version: 4.0
+#Date:    08/02/17
 import random
 import time
 from datetime import date
 #----------------Display build version and local time---------------------
 today = date.today()
-build_version = 3.1
+build_version = 4.0
 current_time = time.asctime( time.localtime( time.time()) )
-print ("Build Version:", str(build_version),"\nTime:", str(current_time), "\n\n")
+print ("\n\nBuild Version:", str(build_version),"\nTime:", str(current_time), "\n\n")
 #-------------------------------------------------------------------------
 
 class Game:
-    ''' Constructs the game '''
-    money = 1000
-    bet = 0
-    odds_amount = 0
-    dice = []
-    point = []
-    payout = 0
-    loss = 0 
 
-    def __init__ (self):
-        self.Game = Game
-        print ("*** Welcome to Craps ***\n\n")
+	#Global Variables
+	bankRoll = 0
+	currentWager = 0
+	lose = False
+	point = 0 
+	oddsAmount = 0
 
-    def rules(self):
-        rules = Game.ask_yes_no("Do you want to see the rules? [Yes/No]:")
-        if rules == 'y' or rules == 'yes':
-            print ("\nRules:\n")
-            print ('''In this version of craps you have the option of making
-a 'pass line bet' which is the most basic bet in craps.
-You will begin with a bankroll of $1,000. Upon making 
-a pass line bet, the come out roll will occur. If the 
-dice land on '7' or '11', you win. If the dice land on 
-'2' or '3' or '12', you lose. If the dice lands on any 
-other number, that number will become the point. If you 
-establish a point you will have the options to take odds
-on that point, up to a maximum of 5x your pass line bet
-which will pay out more than even money depending on 
-which number is the point (4,10 pays 2 to 1) 
-(5,9 pays 3 to 2) (6,8 pays 6 to 5)''')
-        else:
-            pass
+	def __init__(self):
+		self.Game = Game
 
-    def ask_yes_no(question):
-        response = None
-        while response not in ("y", "n", "yes", "no"):
-            response = input(question).lower()
-        return response							
+	def welcome(self):
+		print ("***Welcome to Craps***")
+
+	def rules(self):
+		displayRules = Game.ask_yes_no("Would you like to see the rules?")
+		if displayRules == 'y' or displayRules == 'yes':
+			print ("Rules Go Here")
+			input ("Press any key to continue.")
+		else:
+			pass
+		Game.bankRoll = 1000
+		print('You have been assigned an initial bankroll of $1,000, good luck!')
 		
-    def roll_dice(self):
-        input ("\nPress Enter to Roll the Dice:")
-        die1 = random.randint(1,6)
-        die2 = random.randint(1,6)
-        Game.dice = die1 + die2
-        print ("\nThe first die is:  %s" %die1)
-        print ("The second die is: %s" %die2)
-        print ("\n \t\t ** Your Roll is: %s **\n" % Game.dice)
-        return Game.dice	
 
-    def come_out_roll(self):
-        Game.dice = Game.roll_dice(self)
-        if Game.dice == 7 or Game.dice == 11:
-            print ("WINNER! %s! Pay the line!" % (Game.dice ) )
-            Game.money = Game.money + Game.bet + Game.bet
-            print ("You win your initial bet of $%s and now have $%s total money!" % (Game.bet, Game.money) ) 
-            Game.betting_options(self) 
-        elif Game.dice == 2 or Game.dice == 3 or Game.dice == 12:
-            print ("Craps, %s, you lose" % (Game.dice) )
-            Game.money = Game.loss 
-            print ("You lose your initial bet of $%s and now have $%s total money." % (Game.bet, Game.money) ) 
-            Game.are_you_broke(self)
-            Game.betting_options(self)
-        else:
-            print ("""\t\t\t************************
-                   **** The Point is""", Game.dice,"""****
-                   ************************\n""")
-            Game.point = Game.dice
-            Game.odds_yes_no(self)
-
-    def streaming_roll(self):
-        Game.dice = Game.roll_dice(self)
-        if Game.dice == Game.point:
-            print ("*** WINNER! %s! Pay the Line!! ***" % Game.point)
-            if Game.odds_amount > 0:
-                print ("You win your initial bet of $%s and the odds bet of $%s" % (Game.bet, Game.odds_amount) ) 
-                Game.odds_payout(self) 
-                Game.money = Game.money + Game.payout
-                print ("\nFor a total of: $%s" % Game.payout)
-                print ("\nYou now have:  $%s" % Game.money)
-                Game.betting_options(self)
-            else:
-                Game.money = Game.money + Game.bet + Game.bet
-                print ("You win your initial bet of $%s and now have $%s" % (Game.bet, Game.money) ) 
-                Game.betting_options(self)
-        elif Game.dice == 7:
-            print ("""Seven out! Line Away....\n
-                Oh, dear. Big Red. Better Luck Next time.\n\n""")
-        else:
-            Game.streaming_roll(self)
+	def comeOutRoll(self):
+		print ("How Much Would you Like to Wager on the Pass Line?")
+		print ("Current Bankroll: $", Game.bankRoll)
+		Game.currentWager = int(input("Wager: $"))
+		input ("Press any key to roll the dice.")
+		Game.point = Game.dice(self)
+		print ('The roll is:', Game.point)
+		if Game.point == 2 or Game.point == 3 or Game.point == 12:
+			print ("Craps,",Game.point,"Craps... Line Away.")
+			Game.bankRoll == Game.bankRoll - Game.currentWager
+			print ("You Lose your bet of $", Game.currentWager, "and now have a total of $", Game.bankRoll)
+		elif Game.point == 7 or Game.point == 11:
+			print ("Winner,",Game.point,"!! Pay the Line!")
+			Game.bankRoll == Game.bankRoll + Game.currentWager
+			print ("You Win your bet of $", Game.currentWager, "and now have a total of $", Game.bankRoll)
+		else:
+			Game.secondPhase(self)
+			#should i subtract the current wager from the bankroll here i wonder?
 
 
-    def odds_yes_no(self):
-        print ("\nYou have the option to take odds on the %s (Recommended)." % Game.dice)
-        odds = Game.ask_yes_no("Take Odds? [Yes/No]:")
-        if odds == "y" or odds == "yes":
-            Game.odds_calculation(self)
-        else:
-            print ("You choose not to take odds.")
-            Game.odds_amount = 0
-            Game.streaming_roll(self)
-
-    def odds_calculation(self):
-        while True:
-            try:
-                Game.odds_amount = int(input("How much would you like to lay in odds? (Maximum of 5x your pass line bet)"))
-                break
-            except ValueError:
-                print ("It must be a number")
-        if Game.odds_amount > Game.bet * 5:
-            print ("You cannot lay more than 5x your bet as odds")
-            Game.odds_calculation(self)
-        elif Game.odds_amount > Game.money:
-            print ("You don't have enough money.")
-            Game.odds_calculation(self)
-        else:
-            print ("You have layed $%s on the %s behind your initial bet of $%s \n" % (Game.odds_amount, Game.dice, Game.bet ) ) 
-            Game.streaming_roll(self)
-
-    def odds_payout(self):
-        if Game.point == 4 or Game.point == 10:
-            Game.payout = Game.odds_amount + Game.odds_amount + Game.odds_amount
-        elif Game.point == 5 or Game.point == 9:
-            Game.payout = Game.odds_amount + Game.odds_amount + (Game.odds_amount / 2) 
-        elif Game.point == 6 or Game.point == 8:
-            Game.payout = Game.odds_amount + (Game.odds_amount / 2) 
-
-    def are_you_broke(self):
-        if Game.money <= 0:
-            Game.game_over(self)
-        else:
-            pass
-
-    def betting_options(self):
-        while True:
-            try: 
-                Game.bet = int(input("\nHow much would you like to wager on the pass line?  Wager: ") )
-                break
-            except ValueError:
-                print ("It must be a number. Do not use letters or special characters.")
-        if Game.bet > Game.money:
-            print ("You don't have that much") 
-            Game.betting_options(self)
-        elif Game.bet <= 0:
-            print ("You cannot wager nothing.")
-            Game.betting_options(self)
-        else:
-            Game.loss = Game.money - Game.bet #for use later if player loses before Game.money is modified by the new calculation.
-            Game.money = Game.money - Game.bet
-            print ("\nYou wager $%s on the Pass Line and have $%s Remaining.\n" % (Game.bet, Game.money) )
-            Game.come_out_roll(self)
-
-    def game_over(self):
-        print ("You are Broke!\n")
-        again = Game.ask_yes_no("Do you want to play again? [Yes/No]:")
-        if again == 'y' or again == 'yes':
-            print ("\nResetting Player Money...........")
-            Game.money = 1000
-            Game.bet = 0
-            Game.payout = 0 
-            Game.dice = []
-            Game.point = []
-            print ("Money = $1,000")
-            Game.betting_options(self)
-        else:
-            exit()
+	def secondPhase(self):
+		print ("The point is:", Game.point)
+		print ("Would you like to Take odds on your",Game.point,"?")
+		odds = Game.ask_yes_no("Take odds? : ")
+		if odds == 'y' or odds =='yes':
+			print ("How much you would like would you like to bet behind your", Game.point,"? (Up to 5x): ")
+			oddsAmount = int(input("Odds Bet: $"))
+			if oddsAmount > game.currentWager * 5:
+				print("The Maximum amount of odds you can place behind the", Game.point,"is $", game.currentWager * 5)
+				input("Press any key to try again.")
+				Game.secondPhase(self)
+			else:
+				Game.oddsAmount = oddsAmount
+				Game.streaming_roll(self)
+				#put something here to not let them be able to bet more than they have in the bank
+		else:
+			Game.oddsAmount = 0
+			input("Press any key to roll the dice.")
+			Game.streaming_roll(self)
 
 
-player1 = Game()
-player1.rules()
-player1.betting_options()
+	def streaming_roll(self):
+		stream = Game.dice(self)
+		if stream == Game.point:
+			print ("Winner! You Rolled the point of", Game.point)
+			print ("You win your initial bet of", Game.currentWager,"plus your odds bet of", Game.oddsAmount)
+			Game.odds(Game.point)
+			print ("Total Win: $",Game.currentWager,"(initial wager pays 1:1) and $",Game.oddsAmount,"from your odds on the", Game.point)
+			Game.bankRoll += Game.currentWager
+			Game.bankRoll += Game.oddsAmount
+			print ("Total Bankroll:", Game.bankRoll)
+			input("Press Any Key to Continue.")
+		elif stream == 7:
+			print ("Oh dear, big red. Seven OUT, line away.")
+			print ("You lose your initial bet of", Game.currentWager,"plus your odds bet of", Game.oddsAmount)
+			Game.odds(Game.point)
+			print ("Total Loss: $",Game.currentWager,"(initial wager) and $",Game.oddsAmount,"from your odds on the", Game.point)
+			Game.bankRoll -= Game.currentWager
+			Game.bankRoll -= Game.oddsAmount
+			print ("Total Bankroll: $", Game.bankRoll)
+			input("Press Any Key to Continue.")
+		else:
+			input ("Press any key to roll again.")
+			Game.streaming_roll(self)
+
+
+	def dice(self):
+		die1 = random.randint(1,6)
+		die2 = random.randint(1,6)
+		dice = die1 + die2
+		print ("You roll a", die1,"and", die2,"for a total of", dice)
+		return dice
+
+	def checkBroke(self):
+		if Game.bankRoll <= 0:
+			lose = True
+		else:
+			pass
+
+	def loseGame(self):
+		print ('Oh dear, you are out of money.')
+		Game.bankRoll = 0 
+		Game.currentWager = 0 
+		playAgain = Game.ask_yes_no("Would You like to play again?")
+		if playAgain == 'y' or playAgain == 'yes':
+			intro = False
+		else:
+			quit()
+
+	def ask_yes_no(question):
+		response = None
+		while response not in ("y", "n", "yes", "no"):
+			response = input(question).lower()
+			return response 
+
+	def odds(calculation):
+
+		if calculation == 4 or calculation == 10:
+			Game.oddsAmount = (Game.oddsAmount * 2) + Game.oddsAmount
+		elif calculation == 5 or calculation == 9:
+			Game.oddsAmount = (Game.oddsAmount * 2) - (Game.oddsAmount / 2)
+		elif calculation == 6 or calculation ==8:
+			Game.oddsAmount = (Game.oddsAmount % 5) + Game.oddsAmount
+		else:
+			pass
+
+
+'''
+gameflow
+
+welcome user / explain rules
+phase one - assign money
+phase two - Place bet / Come out Roll
+phase three - Result of Come out Roll / Bet payoff, either assign point or redo come out roll - do they have money to continue?
+phase four -  Point Phase of the game - Shooter either wins or loses
+phase five - check if broke, restart phase two
+'''
+if __name__ == '__main__':
+	game = Game()
+	intro = True
+	phase1 = True
+	while intro:
+		game.welcome()
+		game.rules()
+		intro = False
+	while phase1:
+		game.comeOutRoll()
+	input('done')
+
+
+
+
 
