@@ -41,7 +41,12 @@ class Game:
 	def comeOutRoll(self):
 		print ("How Much Would you Like to Wager on the Pass Line?")
 		print ("Current Bankroll: $", Game.bankRoll)
-		Game.currentWager = int(input("Wager: $"))
+		while True:
+			try:
+				Game.currentWager = int(input("Wager: $"))
+				break
+			except ValueError:
+				print ("The input must be a number")
 		input ("Press any key to roll the dice.")
 		Game.point = Game.dice(self)
 		print ('The roll is:', Game.point)
@@ -64,7 +69,12 @@ class Game:
 		odds = Game.ask_yes_no("Take odds? : ")
 		if odds == 'y' or odds =='yes':
 			print ("How much you would like would you like to bet behind your", Game.point,"? (Up to 5x): ")
-			oddsAmount = int(input("Odds Bet: $"))
+			while True:
+				try:
+					oddsAmount = int(input("Odds Bet: $"))
+					break
+				except ValueError:
+					print ("The input must be a number")
 			if oddsAmount > game.currentWager * 5:
 				print("The Maximum amount of odds you can place behind the", Game.point,"is $", game.currentWager * 5)
 				input("Press any key to try again.")
