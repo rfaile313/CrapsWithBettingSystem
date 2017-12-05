@@ -210,7 +210,7 @@ phase one - assign money
 phase two - Place bet / Come out Roll
 phase three - Result of Come out Roll / Bet payoff, either assign point or redo come out roll - do they have money to continue?
 phase four -  Point Phase of the game - Shooter either wins or loses
-phase five - check if broke, restart phase two
+phase five - check if broke, restart phase two.
 '''
 
 
