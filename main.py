@@ -4,6 +4,7 @@
 import random
 import time
 from datetime import date
+import ascii_dice
 
 # ----------------Display build version and local time---------------------
 today = date.today()
@@ -11,7 +12,6 @@ build_version = 4.0
 current_time = time.asctime(time.localtime(time.time()))
 print("\n\nBuild Version:", str(build_version), "\nTime:", str(current_time), "\n\n")
 # -------------------------------------------------------------------------
-
 
 class Game:
 
@@ -134,6 +134,9 @@ class Game:
         die2 = random.randint(1, 6)
         dice = die1 + die2
         print("You roll a", die1, "and", die2, "for a total of", dice)
+        print(ascii_dice.dice[die1 - 1])
+        print(ascii_dice.dice[die2 - 1], '\n')
+
         return dice
 
     @staticmethod
@@ -209,6 +212,7 @@ phase three - Result of Come out Roll / Bet payoff, either assign point or redo 
 phase four -  Point Phase of the game - Shooter either wins or loses
 phase five - check if broke, restart phase two
 '''
+
 
 if __name__ == '__main__':
 
