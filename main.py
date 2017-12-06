@@ -117,7 +117,6 @@ class Game:
         elif stream == 7:
             print("Oh dear, big red. Seven OUT, line away.")
             print("You lose your initial bet of", Game.currentWager, "plus your odds bet of", Game.oddsAmount)
-            Game.odds(Game.point)
             print("Total Loss: $", Game.currentWager, "(initial wager) and $", Game.oddsAmount, "from your odds on the",
                   Game.point)
             Game.bankRoll -= Game.currentWager
@@ -194,11 +193,11 @@ class Game:
     @staticmethod
     def odds(calculation):
         if calculation == 4 or calculation == 10:
-            Game.oddsAmount = (Game.oddsAmount * 2) + Game.oddsAmount
+            Game.oddsAmount *= 9/5
         elif calculation == 5 or calculation == 9:
-            Game.oddsAmount = (Game.oddsAmount * 2) - (Game.oddsAmount / 2)
+            Game.oddsAmount *= 7/5
         elif calculation == 6 or calculation == 8:
-            Game.oddsAmount = (Game.oddsAmount % 5) + Game.oddsAmount
+            Game.oddsAmount *= 7/6
         else:
             pass
 
