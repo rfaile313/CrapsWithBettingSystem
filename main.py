@@ -107,7 +107,7 @@ class Game:
 
         if stream == Game.point:
             print("Winner! You Rolled the point of", Game.point)
-            print("You win your initial bet of", Game.currentWager, "plus your odds bet of", Game.oddsAmount)
+            print("You win your initial bet of", Game.currentWager, "plus your odds bet of $", Game.oddsAmount)
             Game.odds(Game.point)
             print("Total Win: $", Game.currentWager, "(initial wager pays 1:1) and $", Game.oddsAmount, "from your odds on the", Game.point)
             Game.bankRoll += Game.currentWager
@@ -116,7 +116,7 @@ class Game:
             input("Press Any Key to Continue.")
         elif stream == 7:
             print("Oh dear, big red. Seven OUT, line away.")
-            print("You lose your initial bet of", Game.currentWager, "plus your odds bet of", Game.oddsAmount)
+            print("You lose your initial bet of", Game.currentWager, "plus your odds bet of $", Game.oddsAmount)
             print("Total Loss: $", Game.currentWager, "(initial wager) and $", Game.oddsAmount, "from your odds on the",
                   Game.point)
             Game.bankRoll -= Game.currentWager
@@ -221,5 +221,6 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\nGamed ended by user!')
         # TODO: Maybe a little game summary here
+        # This is a good idea, perhaps roll and win/loss history!
 
 
