@@ -7,10 +7,8 @@ If you'd like to branch, here are a few things that still need to be done:
 
 1.Rules explaining the game.
 
-2.Better overall control flow.
+2.*Advanced* - work the code into a GUI using a library like Tkinter or PyGame.
 
-3.Raise exception errors for non-acceptable input (i.e. trying to type a string for a bet.)
-
-4.*Advanced* - work the code into a GUI using a library like Tkinter or PyGame.
+3. Check "Issues" for even more fixes. Anyone is welcome to jump-in.
 
 
