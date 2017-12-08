@@ -5,9 +5,9 @@ Originally created in 2015 as a baseline for learning Python, I decided to go ba
 
 If you'd like to branch, here are a few things that still need to be done:
 
-1.Rules explaining the game.
+1. Rules explaining the game.
 
-2.*Advanced* - work the code into a GUI using a library like Tkinter or PyGame.
+2. *Advanced* - work the code into a GUI using a library like Tkinter or PyGame.
 
 3. Check "Issues" for even more fixes. Anyone is welcome to jump-in.
 
