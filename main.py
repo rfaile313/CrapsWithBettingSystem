@@ -44,9 +44,11 @@ class Game:
     @staticmethod
     def rules():
 
-        if Game.ask_yes_no("Would you like to see the rules?"):
-            print("Rules Go Here")
+        rules = Game.ask_yes_no("Would you like to see the rules?")
+        if 'y' or 'yes' not in rules:
             input("Press any key to continue.")
+        else:
+            print("Rules Go Here")
 
         Game.bankRoll = 1000
         print('You have been assigned an initial bankroll of $1,000, good luck!')
@@ -82,9 +84,13 @@ class Game:
         print("The point is:", Game.point)
         print("Would you like to Take odds on your", Game.point, "?")
 
-        if Game.ask_yes_no("Take odds? : "):
+        take_odds = Game.ask_yes_no("Take odds? : ")
+        if 'y' or 'yes' not in take_odds:
+            Game.oddsAmount = 0
+            input("Press any key to roll the dice.")
+            Game.streaming_roll()
+        else:
             print("How much you would like would you like to bet behind your", Game.point, "? (Up to 5x): ")
-
             oddsAmount = Game.ask_for_value("Odds Bet: $")
 
             if oddsAmount > Game.currentWager * 5:
@@ -96,11 +102,6 @@ class Game:
                 Game.streaming_roll()
 
                 # TODO: put something here to not let them be able to bet more than they have in the bank
-        else:
-            Game.oddsAmount = 0
-            input("Press any key to roll the dice.")
-            Game.streaming_roll()
-
     @staticmethod
     def streaming_roll():
         stream = Game.dice()
@@ -143,7 +144,7 @@ class Game:
         if Game.bankRoll <= 0:
             lose = True
 
-    @staticmethod
+    
     def loseGame(self):
         print('Oh dear, you are out of money.')
         Game.bankRoll = 0
@@ -154,7 +155,7 @@ class Game:
         else:
             quit(0)
 
-    @staticmethod
+    
     def ask_yes_no(question):
         response = None
 
@@ -172,7 +173,7 @@ class Game:
         else:
             return False
 
-    @staticmethod
+    
     def ask_for_value(question):
         """The solution for asking for a integer value without using exceptions """
 
@@ -190,7 +191,7 @@ class Game:
 
         return answer
 
-    @staticmethod
+    
     def odds(calculation):
         if calculation == 4 or calculation == 10:
             Game.oddsAmount *= 2/1
