@@ -112,7 +112,7 @@ class Game:
             print("Total Win: $", Game.currentWager, "(initial wager pays 1:1) and $", Game.oddsAmount, "from your odds on the", Game.point)
             Game.bankRoll += Game.currentWager
             Game.bankRoll += Game.oddsAmount
-            print("Total Bankroll:", Game.bankRoll)
+            print("Total Bankroll: $", Game.bankRoll)
             input("Press Any Key to Continue.")
         elif stream == 7:
             print("Oh dear, big red. Seven OUT, line away.")
@@ -193,13 +193,14 @@ class Game:
     @staticmethod
     def odds(calculation):
         if calculation == 4 or calculation == 10:
-            Game.oddsAmount *= 9/5
+            Game.oddsAmount *= 2/1
         elif calculation == 5 or calculation == 9:
-            Game.oddsAmount *= 7/5
+            Game.oddsAmount *= 3/2
         elif calculation == 6 or calculation == 8:
-            Game.oddsAmount *= 7/6
+            Game.oddsAmount *= 6/5
         else:
             pass
+        Game.oddsAmount = int(round(Game.oddsAmount))
 
 '''
 gameflow
