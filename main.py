@@ -170,7 +170,7 @@ class Game:
             if response not in expected_responses:
                 print('Wrong input please <yes/no>')
 
-        if response is 'yes' or 'y':
+        if response == 'yes' or response == 'y':
             return True
         else:
             return False
