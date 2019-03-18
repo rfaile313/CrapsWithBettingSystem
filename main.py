@@ -1,5 +1,5 @@
 # Author:  Rudy Faile
-# Version: 4.0
+# Version: 4.1.0
 # Date:    08/02/17
 import random
 import time
@@ -8,11 +8,9 @@ import ascii_dice
 
 # ----------------Display build version and local time---------------------
 today = date.today()
-build_version = 4.0
+build_version = 4.1.0
 current_time = time.asctime(time.localtime(time.time()))
 print("\n\nBuild Version:", str(build_version), "\nTime:", str(current_time), "\n\n")
-
-
 # -------------------------------------------------------------------------
 
 class Game:
@@ -86,7 +84,7 @@ class Game:
         print("The point is:", Game.point)
         print("Would you like to Take odds on your", Game.point, "?")
 
-        take_odds = Game.ask_yes_no("Take odds? : ")
+        take_odds = Game.ask_yes_no("Take odds? (yes or no) : ")
         if 'y' or 'yes' not in take_odds:
             Game.odds_amount = 0
             input("Press any key to roll the dice.")
@@ -202,18 +200,6 @@ class Game:
         else:
             pass
         Game.odds_amount = int(round(Game.odds_amount))
-
-
-'''
-gameflow
-
-welcome user / explain rules
-phase one - assign money
-phase two - Place bet / Come out Roll
-phase three - Result of Come out Roll / Bet payoff, either assign point or redo come out roll - do they have money to continue?
-phase four -  Point Phase of the game - Shooter either wins or loses
-phase five - check if broke, restart phase two.
-'''
 
 if __name__ == '__main__':
 
