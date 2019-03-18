@@ -1,7 +1,7 @@
 # CrapsWithBettingSystem
 A simple Command Line Interface (CLI) Python Craps game I created from scratch with pass line and odds betting.
 
-![screenshot](![screenshot](https://cld.wthms.co/07tJZq+)+)
+![screenshot](https://cld.wthms.co/07tJZq+)
 
 Originally created in 2015 as a baseline for learning Python, I decided to go back through recently and update the code to be cleaner and more effective. Feel free to download and play with it as you learn the language.
 
