@@ -164,3 +164,4 @@ class Game:
         if not self.__keep_playing:
             print('Thanks for playing! See ya!')
             exit(0)
+            
