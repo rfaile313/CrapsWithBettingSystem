@@ -36,9 +36,9 @@ class Game:
         if not au.ask_yes_no("Would you like to see the rules?"):
             input("Press any key to continue.")
         else:
-            print("\n1. Place a bet.\r\n2. Roll the dice.\r\n3. Get a 7 or 11, you win, get a 2, 3, or 12, you __lost, "
-                  "game over.\r\n4. Any other number, that's your __point.\r\n5. Keep rolling until...\r\n6. ...you "
-                  "repeat your __point, and you win, game over.\r\n7. ...you get a 7, and you __lost, game over.\n")
+            print("\n1. Place a bet.\r\n2. Roll the dice.\r\n3. Get a 7 or 11, you win, get a 2, 3, or 12, you lost, "
+                  "game over.\r\n4. Any other number, that's your point.\r\n5. Keep rolling until...\r\n6. ...you "
+                  "repeat your point, and you win, game over.\r\n7. ...you get a 7, and you lost, game over.\n")
 
         print('You have been assigned an initial bankroll of $1,000, good luck!')
 
@@ -144,7 +144,7 @@ class Game:
         if au.ask_yes_no("Would You like to play again?"):
             exit(0)
             game = Game()
-            game.start
+            game.start()
         else:
             quit(0)
 
@@ -164,4 +164,3 @@ class Game:
         if not self.__keep_playing:
             print('Thanks for playing! See ya!')
             exit(0)
-

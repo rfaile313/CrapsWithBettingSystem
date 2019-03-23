@@ -10,10 +10,7 @@ def ask_yes_no(question):
         if response not in expected_responses:
             print('Wrong input please <yes/no>')
 
-    if response == 'yes' or response == 'y':
-        return True
-    else:
-        return False
+    return response == 'yes' or response == 'y'
 
 
 def ask_for_value(question):
