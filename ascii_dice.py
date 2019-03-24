@@ -1,6 +1,8 @@
 import time
 import random
 
+
+
 dice1 = """
 __________
 |         |
@@ -49,7 +51,7 @@ __________
 |  O   O  |
 |_________|"""
 
-dice = (dice1, dice2, dice3, dice4, dice5, dice6)
+dice_list = (dice1, dice2, dice3, dice4, dice5, dice6)
 
 # Seconds that the dice animation will be shown
 animation_duration_time = 10
@@ -62,3 +64,14 @@ def roll_dice():
 
 
 time.sleep(1)
+
+
+def dice():
+        die1 = random.randint(1, 6)
+        die2 = random.randint(1, 6)
+        dice = die1 + die2
+        print("You roll a", die1, "and", die2, "for a total of", dice)
+        print(dice_list[die1 - 1])
+        print(dice_list[die2 - 1], '\n')
+
+        return dice
