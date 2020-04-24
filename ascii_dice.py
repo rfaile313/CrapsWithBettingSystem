@@ -1,8 +1,6 @@
 import time
 import random
 
-
-
 dice1 = """
 __________
 |         |
@@ -64,7 +62,6 @@ def roll_dice():
 
 
 time.sleep(1)
-
 
 def dice():
         die1 = random.randint(1, 6)

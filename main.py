@@ -1,10 +1,11 @@
 # Author:  Rudy Faile
-# Version: 4.1.0
+# Version: 4.2.0
 # Date:    08/02/17
+# License: MIT
+
 import random
 import ascii_dice
 import ask_user as au
-
 
 class Game:
     # Attributes
@@ -33,7 +34,8 @@ class Game:
     @staticmethod
     def rules():
 
-        if not au.ask_yes_no("Would you like to see the rules?"):
+        if not au.ask_yes_no("Would you like to see the rules? (Yes/No)"):
+            #TODO: rules don't work
             input("Press any key to continue.")
         else:
             print("\n1. Place a bet.\r\n2. Roll the dice.\r\n3. Get a 7 or 11, you win, get a 2, 3, or 12, you lost, "
